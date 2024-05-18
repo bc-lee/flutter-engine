@@ -30,6 +30,10 @@
 #include "flutter/shell/platform/linux/public/flutter_linux/fl_engine.h"
 #include "flutter/shell/platform/linux/public/flutter_linux/fl_plugin_registry.h"
 
+#ifdef FLUTTER_DLOPEN_GTK3
+#include "flutter/shell/platform/linux/fl_gtk_ensure_initialized.h"
+#endif
+
 static constexpr int kMicrosecondsPerMillisecond = 1000;
 
 struct _FlView {
@@ -805,6 +809,9 @@ static void fl_view_init(FlView* self) {
 }
 
 G_MODULE_EXPORT FlView* fl_view_new(FlDartProject* project) {
+#ifdef FLUTTER_DLOPEN_GTK3
+  fl_gtk_ensure_initialized();
+#endif
   return static_cast<FlView*>(
       g_object_new(fl_view_get_type(), "flutter-project", project, nullptr));
 }

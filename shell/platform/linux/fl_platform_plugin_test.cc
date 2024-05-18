@@ -13,6 +13,10 @@
 #include "flutter/shell/platform/linux/testing/mock_binary_messenger.h"
 #include "flutter/testing/testing.h"
 
+#ifdef FLUTTER_DLOPEN_GTK3
+#include "flutter/shell/platform/linux/fl_gtk_ensure_initialized.h"
+#endif
+
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
@@ -227,6 +231,9 @@ TEST(FlPlatformPluginTest, ExitApplication) {
 }
 
 TEST(FlPlatformPluginTest, ExitApplicationDispose) {
+#ifdef FLUTTER_DLOPEN_GTK3
+  fl_gtk_ensure_initialized();
+#endif
   gtk_init(0, nullptr);
 
   gboolean dispose_called = false;

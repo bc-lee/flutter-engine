@@ -3,6 +3,11 @@
 // found in the LICENSE file.
 
 #include "fl_test_gtk_logs.h"
+
+#ifdef FLUTTER_DLOPEN_GTK3
+#include "flutter/shell/platform/linux/fl_gtk_ensure_initialized.h"
+#endif
+
 #include "gtest/gtest.h"
 
 namespace flutter {
@@ -34,6 +39,9 @@ GLogWriterOutput log_writer(GLogLevelFlags log_level,
 
 void fl_ensure_gtk_init(GLogWriterFunc writer) {
   if (!gtk_initialized) {
+#ifdef FLUTTER_DLOPEN_GTK3
+    fl_gtk_ensure_initialized();
+#endif
     gtk_init(0, nullptr);
     g_log_set_writer_func(log_writer, nullptr, nullptr);
     gtk_initialized = true;

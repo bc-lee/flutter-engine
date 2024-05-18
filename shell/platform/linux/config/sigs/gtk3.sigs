@@ -1,0 +1,137 @@
+//-------------------------------------
+// Functions from GTK3 used in Flutter
+//--------------------------------------
+
+// Keep this file sorted alphabetically.
+
+// a11y/gtkcontaineraccessible.h
+GType gtk_container_accessible_get_type(void);
+
+// gdk/gdkcursor.h
+GdkCursor* gdk_cursor_new_from_name(GdkDisplay* display, const gchar* name);
+
+// gdk/gdkdevice.h
+GdkInputSource gdk_device_get_source(GdkDevice* device);
+GType gdk_device_get_type(void);
+
+// gdk/gdkdisplay.h
+void gdk_display_beep(GdkDisplay* display);
+GdkDisplay* gdk_display_get_default(void);
+
+// gdk/gdkevents.h
+GdkEvent* gdk_event_copy(const GdkEvent* event);
+void gdk_event_free(GdkEvent* event);
+gboolean gdk_event_get_button(const GdkEvent* event, guint* button);
+gboolean gdk_event_get_coords(const GdkEvent* event, gdouble* x_win, gdouble* y_win);
+GdkEventType gdk_event_get_event_type(const GdkEvent* event);
+gboolean gdk_event_get_keycode(const GdkEvent* event, guint16* keycode);
+gboolean gdk_event_get_keyval(const GdkEvent* event, guint* keyval);
+gboolean gdk_event_get_scroll_deltas(const GdkEvent* event, gdouble* delta_x, gdouble* delta_y);
+gboolean gdk_event_get_scroll_direction(const GdkEvent* event, GdkScrollDirection* direction);
+GdkDevice* gdk_event_get_source_device(const GdkEvent* event);
+gboolean gdk_event_get_state(const GdkEvent* event, GdkModifierType* state);
+guint32 gdk_event_get_time(const GdkEvent* event);
+gboolean gdk_event_is_scroll_stop_event(const GdkEvent* event);
+GdkEvent* gdk_event_new(GdkEventType type);
+void gdk_event_put(const GdkEvent* event);
+
+// gdk/gdkglcontext.h
+void gdk_gl_context_clear_current(void);
+GType gdk_gl_context_get_type(void);
+void gdk_gl_context_make_current(GdkGLContext* context);
+gboolean gdk_gl_context_realize(GdkGLContext* context, GError** error);
+
+// gdk/gdkkeys.h
+GdkKeymap* gdk_keymap_get_for_display(GdkDisplay* display);
+guint gdk_keymap_lookup_key(GdkKeymap* keymap, const GdkKeymapKey* key);
+guint32 gdk_keyval_to_unicode(guint keyval) G_GNUC_CONST;
+
+// gdk/gdkwindow.h
+GdkGLContext* gdk_window_create_gl_context(GdkWindow* window, GError** error);
+GdkDisplay* gdk_window_get_display(GdkWindow* window);
+GdkWindowState gdk_window_get_state(GdkWindow* window);
+GType gdk_window_get_type(void);
+void gdk_window_set_cursor(GdkWindow* window, GdkCursor* cursor);
+
+// gtkapplication.h
+
+GType gtk_application_get_type(void);
+GList* gtk_application_get_windows(GtkApplication* application);
+
+// gtkapplicationwindow.h
+GtkWidget* gtk_application_window_new(GtkApplication* application);
+
+// gtkcontainer.h
+void gtk_container_add(GtkContainer* container, GtkWidget* widget);
+GType gtk_container_get_type(void);
+
+// gtkclipboard.h
+
+GtkClipboard* gtk_clipboard_get_default(GdkDisplay* display);
+void gtk_clipboard_request_text(GtkClipboard* clipboard, GtkClipboardTextReceivedFunc callback, gpointer user_data);
+void gtk_clipboard_set_text(GtkClipboard* clipboard, const gchar* text, gint len);
+
+// gtkbox.h
+GType gtk_box_get_type(void);
+
+// gtkentrybuffer.h
+
+guint gtk_entry_buffer_delete_text(GtkEntryBuffer* buffer, guint position, gint n_chars);
+guint gtk_entry_buffer_get_length(GtkEntryBuffer* buffer);
+const gchar* gtk_entry_buffer_get_text(GtkEntryBuffer* buffer);
+GType gtk_entry_buffer_get_type(void);
+guint gtk_entry_buffer_insert_text(GtkEntryBuffer* buffer, guint position, const gchar* chars, gint n_chars);
+GtkEntryBuffer* gtk_entry_buffer_new(const gchar* initial_chars, gint n_initial_chars);
+void gtk_entry_buffer_set_text(GtkEntryBuffer* buffer, const gchar* chars, gint n_chars);
+
+// gtkeventbox.h
+GtkWidget* gtk_event_box_new(void);
+
+// gtkgesturezoom.h
+GtkGesture* gtk_gesture_rotate_new(GtkWidget* widget);
+GtkGesture* gtk_gesture_zoom_new(GtkWidget* widget);
+
+// gtkglarea.h
+
+GError* gtk_gl_area_get_error(GtkGLArea* area);
+GType gtk_gl_area_get_type(void);
+GtkWidget* gtk_gl_area_new(void);
+void gtk_gl_area_set_error(GtkGLArea* area, const GError* error);
+
+// gtkimcontext.h
+gboolean gtk_im_context_filter_keypress(GtkIMContext* context, GdkEventKey* event);
+void gtk_im_context_focus_in(GtkIMContext* context);
+void gtk_im_context_focus_out(GtkIMContext* context);
+void gtk_im_context_get_preedit_string(GtkIMContext* context, gchar** str, PangoAttrList** attrs, gint* cursor_pos);
+GType gtk_im_context_get_type(void);
+void gtk_im_context_set_client_window(GtkIMContext* context, GdkWindow* window);
+void gtk_im_context_set_cursor_location(GtkIMContext* context, const GdkRectangle* area);
+void gtk_im_context_set_surrounding(GtkIMContext* context, const gchar* text, gint len, gint cursor_index);
+GtkIMContext* gtk_im_multicontext_new(void);
+
+// gtkmain.h
+void gtk_init(int* argc, char*** argv);
+
+// gtkwidget.h
+void gtk_widget_add_events(GtkWidget* widget, gint events);
+void gtk_widget_class_set_accessible_type(GtkWidgetClass* widget_class, GType type);
+AtkObject* gtk_widget_get_accessible(GtkWidget* widget);
+int gtk_widget_get_allocated_height(GtkWidget* widget);
+int gtk_widget_get_allocated_width(GtkWidget* widget);
+void gtk_widget_get_allocation(GtkWidget* widget, GtkAllocation* allocation);
+GdkWindow* gtk_widget_get_parent_window(GtkWidget* widget);
+gboolean gtk_widget_get_realized(GtkWidget* widget);
+gint gtk_widget_get_scale_factor(GtkWidget* widget);
+GtkWidget* gtk_widget_get_toplevel(GtkWidget* widget);
+GType gtk_widget_get_type(void);
+GdkWindow* gtk_widget_get_window(GtkWidget* widget);
+void gtk_widget_queue_draw(GtkWidget* widget);
+void gtk_widget_set_can_focus(GtkWidget* widget, gboolean can_focus);
+void gtk_widget_set_hexpand(GtkWidget* widget, gboolean expand);
+gboolean gtk_widget_translate_coordinates(GtkWidget* src_widget, GtkWidget* dest_widget, gint src_x, gint src_y, gint* dest_x, gint* dest_y);
+void gtk_widget_set_vexpand(GtkWidget* widget, gboolean expand);
+void gtk_widget_show(GtkWidget* widget);
+
+// gtkwindow.h
+GType gtk_window_get_type(void) G_GNUC_CONST;
+void gtk_window_set_application(GtkWindow* window, GtkApplication* application);

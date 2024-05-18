@@ -93,8 +93,6 @@ source_set("flutter_linux_sources") {
              "key_mapping.h",
            ]
 
-  configs += [ "//flutter/shell/platform/linux/config:gtk" ]
-
   sources = [
     "fl_accessible_node.cc",
     "fl_accessible_text_field.cc",
@@ -160,6 +158,7 @@ source_set("flutter_linux_sources") {
     "//flutter/shell/platform/common:common_cpp_enums",
     "//flutter/shell/platform/common:common_cpp_input",
     "//flutter/shell/platform/common:common_cpp_switches",
+    "//flutter/shell/platform/linux/config:gtk",
     "//flutter/shell/platform/embedder:embedder_headers",
     "//flutter/third_party/rapidjson",
   ]
@@ -167,7 +166,6 @@ source_set("flutter_linux_sources") {
 
 source_set("flutter_linux") {
   configs += [
-    "//flutter/shell/platform/linux/config:gtk",
     "//flutter/shell/platform/linux/config:epoxy",
   ]
 
@@ -175,7 +173,7 @@ source_set("flutter_linux") {
 
   public_deps = [ ":flutter_linux_sources" ]
 
-  deps = [ "//flutter/shell/platform/embedder:embedder_as_internal_library" ]
+  deps = [ "//flutter/shell/platform/embedder:embedder_as_internal_library", "//flutter/shell/platform/linux/config:gtk" ]
 }
 
 test_fixtures("flutter_linux_fixtures") {
@@ -248,7 +246,6 @@ executable("flutter_linux_unittests") {
   public_configs = [ "//flutter:config" ]
 
   configs += [
-    "//flutter/shell/platform/linux/config:gtk",
     "//flutter/shell/platform/linux/config:epoxy",
   ]
 
@@ -268,6 +265,7 @@ executable("flutter_linux_unittests") {
     "//flutter/shell/platform/common:common_cpp_enums",
     "//flutter/shell/platform/embedder:embedder_headers",
     "//flutter/shell/platform/embedder:embedder_test_utils",
+    "//flutter/shell/platform/linux/config:gtk",
     "//flutter/testing",
   ]
 }

@@ -33,7 +33,7 @@ template("generate_stubs") {
   _gen_dir = get_path_info(invoker.output_name, "gen_dir")
 
   action("${target_name}__stubs_gen") {
-    script = "//tools/generate_stubs/generate_stubs.py"
+    script = "//flutter/tools/generate_stubs/generate_stubs.py"
     sources = invoker.sigs
     inputs = [ invoker.extra_header ]
     outputs = [
@@ -97,9 +97,7 @@ template("generate_stubs") {
     if (!defined(deps)) {
       deps = []
     }
-    if (!defined(macro_deps)) {
-      deps += [ "//base" ]
-    } else {
+    if (defined(macro_deps)) {
       deps += macro_deps
     }
     if (!defined(public_deps)) {

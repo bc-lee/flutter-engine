@@ -3,14 +3,73 @@
 # found in the LICENSE file.
 
 import("//build/config/linux/pkg_config.gni")
+import("//flutter/common/config.gni")
 import("//flutter/shell/platform/glfw/config.gni")
+import("//flutter/tools/generate_stubs/rules.gni")
 
 pkg_config("x11") {
   packages = [ "x11" ]
 }
 
-pkg_config("gtk") {
-  packages = [ "gtk+-3.0" ]
+if (flutter_link_gtk3) {
+  pkg_config("gtk3") {
+    packages = [ "gtk+-3.0" ]
+  }
+
+  group("gtk") {
+    public_configs = [ ":gtk3" ]
+  }
+} else {
+  pkg_config("atk") {
+    packages = [ "atk" ]
+  }
+  pkg_config("gio") {
+    packages = [ "gio-2.0" ]
+  }
+
+  pkg_config("glib") {
+    packages = [ "glib-2.0" ]
+  }
+  pkg_config("pango") {
+    packages = [ "pango" ]
+  }
+  pkg_config("pangocairo") {
+    packages = [ "pangocairo" ]
+  }
+
+  pkg_config("gtk3") {
+    packages = [ "gtk+-3.0" ]
+    ignore_libs = true
+  }
+
+  config("gtk3_dlopen_config") {
+    defines = [ "FLUTTER_DLOPEN_GTK3" ]
+  }
+
+  generate_stubs("gtk3_stubs") {
+    configs = [ ":gtk3" ]
+    deps = [ "../../../../fml" ]
+    extra_header = "gtk3_stub_header.fragment"
+    logging_function = "FML_LOG(FATAL)"
+    logging_include = "flutter/fml/logging.h"
+    output_name = "gtk3_stubs"
+    sigs = [ "sigs/gtk3.sigs" ]
+    macro_include = "flutter/fml/compiler_specific.h"
+  }
+
+  source_set("gtk") {
+    public_configs = [
+      ":gtk3",
+      ":gtk3_dlopen_config",
+      ":gio",
+      ":glib",
+      ":atk",
+      ":pango",
+      ":pangocairo",
+    ]
+
+    deps = [ ":gtk3_stubs" ]
+  }
 }
 
 pkg_config("egl") {

@@ -26,4 +26,25 @@
 #define FML_ALLOW_UNUSED_TYPE
 #endif
 
+#ifdef __has_attribute
+#if __has_attribute(no_sanitize)
+#define FML_NO_SANITIZE(what) __attribute__((no_sanitize(what)))
+#endif
+#endif
+#ifndef FML_NO_SANITIZE
+#define FML_NO_SANITIZE(what)
+#endif
+
+// DISABLE_CFI_ICALL -- Disable Control Flow Integrity indirect call checks.
+// Note that the same macro is defined in "base/compiler_specific.h" of Chromium.
+#if !defined(DISABLE_CFI_ICALL)
+#if defined(FML_OS_WIN)
+// Windows also needs __declspec(guard(nocf)).
+#define DISABLE_CFI_ICALL FML_NO_SANITIZE("cfi-icall") __declspec(guard(nocf))
+#else
+#define DISABLE_CFI_ICALL FML_NO_SANITIZE("cfi-icall")
+#endif  // defined(FML_OS_WIN)
+#endif  // !defined(DISABLE_CFI_ICALL)
+
+
 #endif  // FLUTTER_FML_COMPILER_SPECIFIC_H_

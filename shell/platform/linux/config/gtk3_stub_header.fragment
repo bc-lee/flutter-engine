@@ -1,0 +1,4 @@
+// The extra include header needed in the generated stub file for defining
+// various GTK 3.0 types.
+
+#include <gtk/gtk.h>

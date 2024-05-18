@@ -20,6 +20,9 @@ declare_args() {
   # Whether to build host-side development artifacts.
   flutter_build_engine_artifacts = true
 
+  # Whether libflutter_linux_gtk.so links to GTK3.
+  flutter_link_gtk3 = true
+
   # Whether to include backtrace support.
   enable_backtrace = true
 
